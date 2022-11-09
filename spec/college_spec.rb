@@ -15,9 +15,9 @@ describe College do
     it 'should return an error if a duplicate ID is registered' do
       college = College.new 'lib/student_records.yaml', 'lib/courses.yaml'
       student = Student.new({id: 'ABC1234', first_name: 'test', last_name: 'User', course: 'BIO'})
-      college.add student
+      college.enroll student
       student = Student.new({id: 'ABC1234', first_name: 'test', last_name: 'User', course: 'PHY'})
-      expect { college.add(student) }.to raise_error RuntimeError
+      expect { college.enroll(student) }.to raise_error RuntimeError
     end
   end
   describe 'get_students_on_course' do

@@ -1,6 +1,4 @@
 require 'student'
-require 'faker_maker'
-
 
 
 describe Student do
