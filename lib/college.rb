@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'yaml'
+require_relative 'student'
 
 class College
   attr_reader :students
@@ -15,10 +16,23 @@ class College
     @students = load_student_records
   end
 
-  def add(student)
+  def enroll(student)
     raise 'This student ID already exits' if get_index(student.id)
 
     @students.push(student)
+  end
+
+  def bulk_enroll(filename)
+    raise 'File not found' unless File.exist? filename
+
+    records_to_import = YAML.load_file(filename)
+    records_to_import.each do |student_data|
+      begin
+        enroll(Student.new(student_data))
+      rescue RuntimeError => error
+        puts "#{error} : #{student_data}"
+      end
+    end
   end
 
   def get_students_on_course(course)
@@ -43,7 +57,7 @@ class College
   end
 
   def save_to_file
-    File.write(@filename, @students.to_yaml)
+    File.write(@student_record_filename, @students.to_yaml)
   end
 
   private

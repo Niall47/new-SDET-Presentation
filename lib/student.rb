@@ -1,20 +1,21 @@
 # frozen_string_literal: true
 
 require_relative 'college'
+require "active_support/core_ext/hash/indifferent_access"
 
 class Student
   attr_accessor :id, :first_name, :last_name, :course
 
   def initialize(student_hash)
-    raise 'Invalid ID' unless valid_id? student_hash[:id]
-    raise 'Invalid first name' unless name_valid? student_hash[:first_name]
-    raise 'Invalid last name' unless name_valid? student_hash[:last_name]
-    raise 'Invalid course' unless course_valid? student_hash[:course]
+    raise 'Invalid ID' unless valid_id? student_hash.with_indifferent_access[:id]
+    raise 'Invalid first name' unless name_valid? student_hash.with_indifferent_access[:first_name]
+    raise 'Invalid last name' unless name_valid? student_hash.with_indifferent_access[:last_name]
+    raise 'Invalid course' unless course_valid? student_hash.with_indifferent_access[:course]
 
-    @id = student_hash[:id]
-    @first_name = student_hash[:first_name]
-    @last_name = student_hash[:last_name]
-    @course = student_hash[:course]
+    @id = student_hash.with_indifferent_access[:id]
+    @first_name = student_hash.with_indifferent_access[:first_name]
+    @last_name = student_hash.with_indifferent_access[:last_name]
+    @course = student_hash.with_indifferent_access[:course]
   end
 
   private
