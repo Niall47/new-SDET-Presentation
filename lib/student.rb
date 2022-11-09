@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require_relative 'college'
 
-class Student < College
+class Student
   attr_accessor :id, :first_name, :last_name, :course
 
   def initialize(student_hash)

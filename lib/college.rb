@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'yaml'
 
 class College
   attr_reader :students
 
   def initialize(filename)
-    raise 'File not found' unless File.exists? filename
+    raise 'File not found' unless File.exist? filename
 
     @filename = filename
     @students = load_from_file
@@ -17,7 +19,7 @@ class College
   end
 
   def get_students_on_course(course)
-    @students.map { |student| student if student.course == course}
+    @students.map { |student| student if student.course == course }
   end
 
   def remove(id)
@@ -26,13 +28,8 @@ class College
   end
 
   def load_from_file
-    # TODO load or return []
     file = YAML.load_file(@filename, permitted_classes: [Student])
-    if file
-      file    
-   else
-    []
-   end
+    file || []
   end
 
   def save_to_file
