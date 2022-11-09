@@ -3,8 +3,6 @@ require 'yaml'
 class College
   attr_reader :students
 
-  @@filename = 'lib/student_records.yaml'
-
   def initialize(filename)
     raise 'File not found' unless File.exists? filename
 
@@ -13,13 +11,13 @@ class College
   end
 
   def add(student)
-    raise 'This student already exits' if get_index(student.id)
+    raise 'This student ID already exits' if get_index(student.id)
 
     @students.push(student)
   end
 
   def get_students_on_course(course)
-    @students.map { |student| student if student.courses.include? course}
+    @students.map { |student| student if student.course == course}
   end
 
   def remove(id)
@@ -28,7 +26,13 @@ class College
   end
 
   def load_from_file
-    YAML.load_file(@filename, permitted_classes: [Student])
+    # TODO load or return []
+    file = YAML.load_file(@filename, permitted_classes: [Student])
+    if file
+      file    
+   else
+    []
+   end
   end
 
   def save_to_file
@@ -38,6 +42,6 @@ class College
   private
 
   def get_index(id)
-    @students.find_index { |student| student.id == id }
+    @students.find_index { |student| student.id == id } unless @students.empty?
   end
 end

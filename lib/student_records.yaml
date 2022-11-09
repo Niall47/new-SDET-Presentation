@@ -1,16 +1,6 @@
 ---
 - !ruby/object:Student
-  id: BCA1234
+  id: NAA1233
   first_name: testy
   last_name: mcTesterson
-  courses:
-  - CSC
-  - CSC
-  - PHY
-  - POP
-- !ruby/object:Student
-  id: LOL6969
-  first_name: testy
-  last_name: mcTesterson
-  courses:
-  - CSC
+  course: PHY
