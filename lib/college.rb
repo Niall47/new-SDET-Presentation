@@ -25,9 +25,9 @@ class College
     @students.map { |student| student if student.course == course }.count
   end
 
-  def remove(id)
-    student_index = get_index(id)
-    @students.delete_at student_index if student_index
+  def print_report
+    course_attendees = @students.group_by(&:course)
+    course_attendees.each_key {|course| puts "#{course} : #{course_attendees[course].count}"}
   end
 
   def load_student_records
@@ -37,11 +37,9 @@ class College
 
   def load_courses
     file = YAML.load_file(@courses_filename)
-    if file.instance_of? Hash
-      file 
-    else
-      raise "Error parsing #{@courses_filename}"
-    end
+    raise "Error parsing #{@courses_filename}" unless file.instance_of? Hash
+
+    file
   end
 
   def save_to_file

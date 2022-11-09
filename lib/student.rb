@@ -7,8 +7,8 @@ class Student
 
   def initialize(student_hash)
     raise 'Invalid ID' unless valid_id? student_hash[:id]
-    raise 'Invalid first name' unless first_name_valid? student_hash[:first_name]
-    raise 'Invalid last name' unless last_name_valid? student_hash[:last_name]
+    raise 'Invalid first name' unless name_valid? student_hash[:first_name]
+    raise 'Invalid last name' unless name_valid? student_hash[:last_name]
     raise 'Invalid course' unless course_valid? student_hash[:course]
 
     @id = student_hash[:id]
@@ -25,11 +25,10 @@ class Student
     id.match?(/^(?![IO])[A-Z]{3}\d{4}$/)
   end
 
-  def first_name_valid?(*_args)
-    true
-  end
+  def name_valid?(name)
+    return unless name.instance_of? String
+    return unless name&.chars&.count&.<= 30
 
-  def last_name_valid?(*_args)
     true
   end
 
