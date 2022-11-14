@@ -3,6 +3,7 @@
 require 'yaml'
 require_relative 'student'
 
+# holds a list of students that can be saved and loaded from file
 class College
   attr_reader :students
 
@@ -27,11 +28,9 @@ class College
 
     records_to_import = YAML.load_file(filename)
     records_to_import.each do |student_data|
-      begin
-        enroll(Student.new(student_data))
-      rescue RuntimeError => error
-        puts "#{error} : #{student_data}"
-      end
+      enroll(Student.new(student_data))
+    rescue RuntimeError => e
+      puts "#{e} : #{student_data}"
     end
   end
 
@@ -41,7 +40,7 @@ class College
 
   def print_report
     course_attendees = @students.group_by(&:course)
-    course_attendees.each_key {|course| puts "#{course} : #{course_attendees[course].count}"}
+    course_attendees.each_key { |course| puts "#{course} : #{course_attendees[course].count}" }
   end
 
   def load_student_records

@@ -1,5 +1,6 @@
-require 'student'
+# frozen_string_literal: true
 
+require 'student'
 
 describe Student do
   describe 'initialize' do
@@ -12,11 +13,11 @@ describe Student do
       expect { Student.new(student_hash) }.to raise_error RuntimeError
     end
     it 'throws an error if provided first name is malformed' do
-      student_hash = { id: 'ABC1234', first_name: {name: 'Jimmy'}, last_name: 'Jimmyson', course: 'BIO' }
+      student_hash = { id: 'ABC1234', first_name: { name: 'Jimmy' }, last_name: 'Jimmyson', course: 'BIO' }
       expect { Student.new(student_hash) }.to raise_error RuntimeError
     end
     it 'throws an error if provided last name is malformed' do
-      student_hash = { id: 'ABC1234', first_name: 'Jim', last_name: {name: 'Jimmyson'}, course: 'CSC' }
+      student_hash = { id: 'ABC1234', first_name: 'Jim', last_name: { name: 'Jimmyson' }, course: 'CSC' }
       expect { Student.new(student_hash) }.to raise_error RuntimeError
     end
     it 'throws an error if provided course is malformed' do

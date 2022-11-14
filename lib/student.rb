@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 require_relative 'college'
-require "active_support/core_ext/hash/indifferent_access"
+require 'active_support/core_ext/hash/indifferent_access'
 
+# holds student data
 class Student
   attr_accessor :id, :first_name, :last_name, :course
 
